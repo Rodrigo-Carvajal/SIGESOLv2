@@ -2,12 +2,12 @@
 from flask import Flask, render_template, request, url_for, redirect, session, flash
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect
 from flask_socketio import SocketIO
 from werkzeug.security import generate_password_hash, check_password_hash
 from config import config
 from datetime import datetime
-import base64
 
 #Instanciación de objetos para la aplicación
 app = Flask(__name__)
@@ -15,10 +15,12 @@ app.secret_key = 'smcnkaej42qownafa0ckco2q'
 csrf = CSRFProtect(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://root@localhost/sigesol10"
 db = SQLAlchemy()
+migrate = Migrate()
 socketio = SocketIO(app)
 login_manager = LoginManager(app)
 login_manager.init_app(app)
 db.init_app(app)
+migrate.init_app(app, db)
 
 #Modelos
 class Usuario(UserMixin, db.Model):
