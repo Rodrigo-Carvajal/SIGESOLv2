@@ -1,0 +1,108 @@
+{% extends "layouts/adminLayout.html" %}
+
+{% block title %}Administrador{% endblock %}
+
+{% block body %}
+<form action="" method="POST">
+    <div class="row g-2 bg-light">
+        <div class="container text-center col-lg-12 p-5">
+            <div class="col-lg-6 form-floating m-2">
+                <div class="input-group-md mb-3">
+                    <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" placeholder="Nombre de usuario (Formato: LPerez)" value="{{ usuario.nombreUsuario }}">
+                </div>
+                <div class="input-group-md mb-3">
+                    <input type="password" class="form-control" id="contrasena" name="contrasena" placeholder="Contraseña" value="{{ usuario.contrasena }}">
+                </div>
+                <div class="input-group-md mb-3">
+                    <input type="text" class="form-control" id="nombreCompleto" name="nombreCompleto" placeholder="Nombre Completo (Primer nombre y dos apellidos)" value="{{ usuario.nombreCompleto }}">
+                </div>
+            </div>
+            <div class="col-lg-6 form-floating m-2">
+                <div class="form-floating mb-3">
+                    <div class="input-group mb-3">
+                        <select class="form-select" id="rol" name="rol" value="{{ usuario.rol }}">
+                        <option selected>{{ usuario.rol }}</option>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Funcionario">Funcionario</option>
+                        <option value="OIRS">OIRS</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-floating mb-3">
+                    <div class="input-group mb-3">
+                        <select class="form-select" id="departamento" name="departamento" value="{{ usuario.departamento }}">
+                        <option selected>{{ usuario.departamento }}</option>
+                        <option value="Departamento administrativo">Departamento administrativo</option>
+                        <option value="Departamento de fiscalización">Departamento de fiscalización</option>            
+                        <option value="Departamento jurídico">Departamento jurídico</option>
+                        <option value="Departamento de operaciones">Departamento de operaciones</option>
+                        <option value="Departamento técnico">Departamento técnico</option>
+                        <option value="Dirección regional">Dirección regional</option>
+                        <option value="OIRS">OIRS</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-floating mb-3">
+                    <div class="input-group mb-3">
+                        <select class="form-select" id="unidad" name="unidad" value="{{ usuario.unidad }}">
+                        <option selected>{{ usuario.unidad }}</option>
+                        <option value="Almacén">Almacén</option>
+                        <option value="Asistencia">Asistencia</option>            
+                        <option value="Asistente social">Asistente social</option>
+                        <option value="Bienes y servicios">Bienes y servicios</option>
+                        <option value="Finanzas">Finanzas</option>
+                        <option value="Gestión operativa">Gestión operativa</option>
+                        <option value="Horas turno">Horas turno</option>
+                        <option value="Informática">Informática</option>
+                        <option value="Jefe de departamento">Jefe de departamento</option>
+                        <option value="RR.HH.">RR.HH.</option>
+                        <option value="Unidad de loteo y subasta">Unidad de loteo y subasta</option>
+                        <option value="Adiestramiento canino">Adiestramiento canino</option>
+                        <option value="Aforo">Aforo</option>
+                        <option value="Análisis financiero">Análisis financiero</option>
+                        <option value="Drogas">Drogas</option>
+                        <option value="Fiscalización Aposteriori">Fiscalización Aposteriori</option>
+                        <option value="UAR Arica">UAR Arica</option>
+                        <option value="UFDDC análisis">UFDDC análisis</option>
+                        <option value="UFDDC análisis">Unidad radiológica</option>
+                        <option value="Fernando Gatica">Fernando Gatica</option>
+                        <option value="Katherine Ampuero">Katherine Ampuero</option>
+                        <option value="Andrés Hidalgo">Andrés Hidalgo 3</option>
+                        <option value="Centro adiestramiento">Centro adiestramiento</option>
+                        <option value="DTI">DTI</option>
+                        <option value="Marítimo">Marítimo</option>
+                        <option value="Puerto Molo">Puerto Molo</option>
+                        <option value="Terrestres">Terrestres</option>
+                        <option value="TNI">TNI</option>
+                        <option value="Vehicular">Vehicular</option>
+                        <option value="Zona primaria">Zona primaria</option>
+                        <option value="Artículo 35">Artículo 35</option>
+                        <option value="Audiencias">Audiencias</option>
+                        <option value="Control receptora">Control receptora</option>
+                        <option value="Control régimen suspensivos">Control régimen suspensivos</option>
+                        <option value="Franquicia">Franquicia</option>
+                        <option value="Giro y cargos">Giro y cargos</option>
+                        <option value="Pagos de derechos">Pagos de derechos</option>
+                        <option value="Pasavantes">Pasavantes</option>
+                        <option value="Sub. departamento de cargos y denuncias">Sub. departamento de cargos y denuncias</option>
+                        <option value="Sub. departamento de reposiciones adminstrativas">Sub. departamento de reposiciones adminstrativas</option>
+                        <option value="Sub. departamento técnico">Sub. departamento técnico</option>
+                        <option value="Zona franca">Zona franca</option>
+                        <option value="Unidad de coorinación">Unidad de coorinación</option>
+                        <option value="Director regional">Director regional</option>
+                        <option value="Archivos">Archivos</option>
+                        <option value="Gestión y control">Gestión y control</option>
+                        </select>
+                    </div>
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                </div>
+            </div>
+        </div>
+        <div class="row-md">
+            <button type="submit" class="btn btn-primary mb-2"><i class="fa-solid fa-pen-nib" ></i> Modificar usuario</button>        
+        </div>
+    </div>
+</form>
+
+
+{% endblock %}

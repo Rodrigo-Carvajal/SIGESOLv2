@@ -1,0 +1,147 @@
+{% extends "layouts/adminLayout.html" %}
+
+    {% block title %}Administrador{% endblock %}
+{% block body %}
+<div class="row align-items-md-stretch">
+    <div class="col-md-12">
+        <div class="h-100 p-3 text-white bg-dark ">
+            <h2>Crud de solicitudes</h2>
+            <hr>
+            <form action="" method="POST">
+                <div class="row g-2 bg-light"> 
+                    <div class="container text-center col-lg-12 p-5">
+                        <div class="col-lg-6 form-floating m-2">
+                            <div class="input-group-md mb-3">
+                                <input type="number" class="form-control" id="idSolicitud" name="idSolicitud" placeholder="Ingrese la id de la solicitud" required>
+                            </div>
+                            <div class="input-group-md mb-3">
+                                <input type="text" class="form-control" id="numero" name="numero" placeholder="Número de solicitud" required>
+                            </div>
+                            <div class="input-group-md mb-3 form-floating">
+                                <input type="date" class="form-control" id="fechaDeIngreso" name="fechaDeIngreso" required>
+                                <label  for="fechaDeIngreso" >Fecha de ingreso de la solicitud</label>
+                            </div>
+                            <div class="input-group-md mb-3 form-floating">
+                                <input type="date" class="form-control" id="fechaDeVencimiento" name="fechaDeVencimiento" required>
+                                <label  for="fechaDeIngreso">Fecha de vencimiento de la solicitud(Máx. 5 días hábiles)</label>
+                            </div>
+                            <div class="input-group-md mb-3">
+                                <input type="text" hidden class="form-control" value="{{ current_user.nombreUsuario }}" id="funcionario" name="funcionario" placeholder="Funcionario" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 form-floating m-2">
+                            <div class="form-floating mb-3">
+                                <div class="input-group-md mb-3">
+                                    <input type="text" class="form-control" id="nombreSolicitante" name="nombreSolicitante" placeholder="Nombre de quien realiza la solicitud:" required>
+                                </div>
+                                <div class="input-group-md mb-3">
+                                    <input type="text" class="form-control" id="materia" name="materia" placeholder="Materia" required>
+                                </div>
+                                <div class="input-group mb-3 form-floating">                        
+                                    <select class="form-select " id="tipo" name="tipo" required>
+                                      <option selected>Elegir un tipo de solicitud</option>
+                                      <option value="Carta">Carta</option>
+                                      <option value="Circular">Circular</option>
+                                      <option value="Citacion">Citación</option>
+                                      <option value="crm">crm</option>
+                                      <option value="Doc digital">Doc digital</option>
+                                      <option value="Encomienda">Encomienda</option>
+                                      <option value="Fax">Fax</option>
+                                      <option value="Invitacion">Invitación</option>
+                                      <option value="Oficio">Oficio</option>
+                                      <option value="Presentación">Presentación</option>
+                                      <option value="Remisor">Remisor</option>
+                                      <option value="Resolucion">Resolución</option>
+                                      <option value="Sobre">Sobre</option>
+                                      <option value="Solicitud">Solicitud</option>
+                                      <option value="otra">Otro documento</option>
+                                    </select>
+                                    <label for="tipo">Tipo</label>
+                                </div>
+                            </div>
+                                <div class="input-group mb-3 form-floating">
+                                    <select class="form-select" id="departamento" name="departamento" required>
+                                      <option selected>Elegir un departamento</option>
+                                      <option value="Departamento administrativo">Departamento administrativo</option>
+                                      <option value="Departamento de fiscalización">Departamento de fiscalización</option>            
+                                      <option value="Departamento jurídico">Departamento jurídico</option>
+                                      <option value="Departamento de operaciones">Departamento de operaciones</option>
+                                      <option value="Departamento técnico">Departamento técnico</option>
+                                      <option value="Dirección regional">Dirección regional</option>
+                                      <option value="OIRS">OIRS</option>
+                                    </select>
+                                    <label for="tipo">Departamento</label>
+                                </div>
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <input type="hidden" name="horaDeIngreso" id="horaDeIngreso" value="{{ current_time }}">
+                            <input type="hidden" name="unidad" id="unidad" value="Sin asignar">
+                        </div>
+                    </div>
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            <div class="d-flex align-items-center justify-content-center">
+                                {% for category,message in messages %}
+                                    <div class="alert col-lg-2  alert-{{category}} alert-dismissible show fade" role="alert">
+                                        <strong>{{message}}</strong> 
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>                        
+                                    </div>    
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+                    <div class="row-md mb-2">
+                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Crear solicitud</button>        
+                    </div>
+                </div>        
+            </form>
+            <hr>
+            <div class="container-fluid mt-2">
+                <div class="table-responsive">
+                    <table class="table table-secondary">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id:</th>
+                                <th scope="col">Número de solicitud:</th>
+                                <th scope="col">Fecha de ingreso:</th>
+                                <th scope="col">Fecha de vencimiento:</th>
+                                <th scope="col">Nombre del solicitante:</th>
+                                <th scope="col">Materia:</th>
+                                <th scope="col">Tipo:</th>
+                                <th scope="col">Departamento:</th>
+                                <th scope="col">Unidad:</th>
+                                <th scope="col">Funcionario:</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for solicitud in solicitudes %}
+                                <tr class="scope">
+                                    <td>{{ solicitud.idSolicitud }}</td>
+                                    <td>{{ solicitud.numero }}</td>
+                                    <td>{{ solicitud.fechaDeIngreso }}</td>
+                                    <td>{{ solicitud.fechaDeVencimiento }}</td>
+                                    <td>{{ solicitud.nombreSolicitante }}</td>
+                                    <td>{{ solicitud.materia }}</td>
+                                    <td>{{ solicitud.tipo }}</td>
+                                    <td>{{ solicitud.departamento }}</td>
+                                    <td>{{ solicitud.unidad }}</td>
+                                    <td>{{ solicitud.usuarioID }}</td>
+                                    <td>
+                                        <a name="editSolicitud" id="editSolicitud" class="btn btn-info" href="/aedits/{{solicitud.idSolicitud}}" role="button"><i class="fa-solid fa-pen-nib"></i> Editar</a>
+                                        <a name="deleteSolicitud" id="deleteSolicitud" class="btn btn-danger" href="/adeletes/{{solicitud.idSolicitud}}" role="button"><i class="fa-solid fa-x"></i> Eliminar</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </div>
+</div>
+
+    
+
+{% endblock %}
+   

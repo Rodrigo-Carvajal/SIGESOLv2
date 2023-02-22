@@ -1,0 +1,58 @@
+{% extends "layouts/secretariaLayout.html" %}
+
+{% block title %}Secretaria{% endblock %}
+
+{% block body %}
+<div class="row align-items-md-stretch">
+    <div class="col-md-12">
+        <div
+            class="h-100 p-5 text-white bg-dark">
+            <h2>Solicitudes de {{unidad}}</h2>
+            <hr>
+            <div class="container-fluid mt-2">
+                <div class="table-responsive">
+                    <table class="table table-secondary">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id:</th>
+                                <th scope="col">Número de solicitud:</th>
+                                <th scope="col">Fecha de ingreso:</th>
+                                <th scope="col">Hora de ingreso:</th>
+                                <th scope="col">Fecha de vencimiento:</th>
+                                <th scope="col">Nombre del solicitante:</th>
+                                <th scope="col">Materia:</th>
+                                <th scope="col">Tipo:</th>
+                                <th scope="col">Funcionario:</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for solicitud in solicitudes %}
+                                {% if solicitud.departamento == departamento and solicitud.unidad == unidad%}
+                                    <tr class="scope">
+                                        <td>{{ solicitud.idSolicitud }}</td>
+                                        <td>{{ solicitud.numero }}</td>
+                                        <td>{{ solicitud.fechaDeIngreso }}</td>
+                                        <td>{{ solicitud.horaDeIngreso }}</td>
+                                        <td>{{ solicitud.fechaDeVencimiento }}</td>
+                                        <td>{{ solicitud.nombreSolicitante }}</td>
+                                        <td>{{ solicitud.materia }}</td>
+                                        <td>{{ solicitud.tipo }}</td>
+                                        <td>{{ solicitud.usuarioID }}</td>
+                                        <td>
+                                            <a name="editSolicitud" id="editSolicitud" class="btn btn-info" href="/estadoSolicitud/{{solicitud.idSolicitud}}" role="button"><i class="fa-solid fa-eye"></i> Ver estado</a>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends "layouts/funcionarioLayout.html" %}
+{% block title %}Funcionario{% endblock %}
+
+{% block body %}
+    <div class="row align-items-md-stretch">
+        <div class="col-md-12">
+            <div class="h-100 p-5 text-white bg-dark">
+                <h2>Gestión de la solicitud #{{ solicitud.idSolicitud }}</h2>
+                <p>Esta solicitud es de tipo {{solicitud.tipo}}, asignada por {{solicitud.nombreSolicitante}} y fue ingresada al sistema por {{solicitud.usuarioID}}</p>
+                <hr>
+                <form action="" method="POST" enctype="multipart/form-data">
+                    <div class="row g-2 bg-light">
+                        <div class="container text-center col-lg-12">
+                            <div class="col p-2">
+                                <div class="form-floating col-lg-12 mb-3">
+                                    <input type="text" name="fkIdSolicitud" class="form-control" id="fkIdSolicitud" value="{{solicitud.idSolicitud}}" >
+                                    <label for="fkIdSolicitud">Id general de la solicitud:</label>
+                                </div>
+                                <div class="form-floating col-lg-12 mb-3">
+                                    <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" value="{{current_user.nombreUsuario}}" required >
+                                    <label for="nombreUsuario">Nombre del usuario que esta realizando la modificación:</label>
+                                </div>                                                            
+                                <div class="form-floating col-lg-12 mb-3">                                
+                                    <input type="text" class="form-control" name="idInternoDepto" id="idInternoDepto" value="{{estado.idInternoDepto}}" >
+                                    <label for="idInternoDepto">Id interno del departamento:</label>
+                                </div>
+                                <div class="form-floating col-lg-12 mb-3">
+                                    <input type="text" name="idModificacion" class="form-control" id="idModificacion" value="{{estado.idModificacion+1}}" >
+                                    <label for="idModificacion">Número de la modificación:</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 form-floating m-2">
+                                <div class="form-floating mb-3">
+                                  <input
+                                    type="text"
+                                    class="form-control" name="estadoActual" id="estadoActual" placeholder="">
+                                  <label for="estadoActual">Estado actual de la solicitud</label>
+                                </div>
+                                <div class=" form-floating mb-3">
+                                    <input type="date" class="form-control" id="fechaModificacion" name="fechaModificacion" required>
+                                    <label for="fechaModificacion">Ingrese la fecha actual:</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="designadoA" class="form-control" id="designadoA" value="{{solicitud.unidad}}">
+                                    <label for="designadoA">El siguiente proceso de la solicitud es designado a:</label>
+                                </div>                                                            
+                                <div class="mb-3 form-floating">
+                                <textarea class="form-control" name="descripcionProceso" id="descripcionProceso" rows="3"></textarea>
+                                <label for="descripcionProceso">Escriba una breve descripción del proceso actual:</label>
+                                </div>                                
+                                <div class="mb-3 form-floating">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                </div>
+                            </div>
+                        </div>
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                <div class="d-flex align-items-center justify-content-center">
+                                    {% for category,message in messages %}
+                                        </svg>
+                                        <div class="alert col-lg-2  alert-{{category}} alert-dismissible show fade" role="alert">
+                                            <strong>{{message}}</strong> 
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>                        
+                                        </div>    
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        {% endwith %}
+                        <div class="row-md">
+                            <button type="submit" class="btn btn-primary mb-2"> <i class="fa-solid fa-pen-nib"></i> Actualizar estado</button>        
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+
+    </div>
+
+{% endblock %}

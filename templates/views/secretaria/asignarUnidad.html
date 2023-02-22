@@ -1,0 +1,151 @@
+{% extends "layouts/secretariaLayout.html" %}
+
+{% block title %}Secretaria{% endblock %}
+    
+{% block body %}
+<div class="card  d-block">    
+  <div class="row">
+    <div class="col-4">
+      <img class="card-img-top justify-items-center logoLogin" src="{{ url_for('static', filename='assets/logo_Login.png') }}" alt="Logo aduana">
+    </div>
+    <div class="row">
+      <div class="card-body col-4">
+        <strong>Id de la solicitud:</strong>{{solicitud.idSolicitud}}<br>
+        <strong>Número de la solicitud:</strong>{{solicitud.numero}}<br>
+        <strong>Fecha de ingreso de la solicitud:</strong>{{solicitud.fechaDeIngreso}}<br>
+        <strong>Hora de ingreso de la solicitud:</strong>{{solicitud.horaDeIngreso}}<br>
+        <strong>Fecha de vencimiento de la solicitud:</strong>{{solicitud.fechaDeVencimiento}}<br>
+        <strong>Nombre del solicitante:</strong>{{solicitud.nombreSolicitante}}<br>
+        <strong>Materia de la solicitud</strong>{{solicitud.materia}}<br>
+        <strong>Tipo de solicitud:</strong>{{solicitud.tipo}}<br>
+        <strong>Departamento</strong>{{solicitud.departamento}}<br>
+      </div>
+      <div class="col-8">      
+        <form action="" method="POST" class="col-">
+          <div class="row">
+            <div class="col-6">
+              <div class="form-floating mb-3">
+                <input class="form-control" type="number" name="idInternoDepto" id="idInternoDepto" value="estado.idInternoDepto" required>
+                <label for="formId1">Id interno </label>
+              </div>
+              <input type="hidden" name="idModificacion" id="idModificacion" value="1">                
+              <input type="hidden" name="nombreUsuario" id="nombreUsuario" value="{{ current_user.nombreUsuario }}" disabled>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  class="form-control" name="descripcionProceso" id="descripcionProceso" placeholder="" required>
+                <label for="descripcionProceso">Descripción del proceso</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="date"
+                  class="form-control" name="fechaModificacion" id="fechaModificacion" placeholder="" required>
+                <label for="fechaModificacion">Fecha de asignación:</label>
+              </div>                               
+            </div>
+            <div class="col-6">
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  class="form-control" name="estadoActual" id="estadoActual" placeholder="" required>
+                <label for="estadoActual">Estado</label>
+              </div>  
+              <div class="mb-3">
+                  <div class="input-group mb-3 form-floating">
+                      <select class="form-select" id="unidad" name="unidad">
+                          {% if solicitud.departamento == "Departamento administrativo"  %}
+                              <option selected>Elegir una unidad</option>
+                              <option value="Jefe de departamento">Jefe de departamento</option>
+                              <option value="Gestión operativa">Gestión operativa</option>
+                              <option value="Almacén">Almacén</option>
+                              <option value="Asistencia">Asistencia</option>            
+                              <option value="Asistente social">Asistente social</option>
+                              <option value="Bienes y servicios">Bienes y servicios</option>
+                              <option value="Finanzas">Finanzas</option>
+                              <option value="Horas turno">Horas turno</option>
+                              <option value="Informática">Informática</option>
+                              <option value="RR.HH.">RR.HH.</option>
+                              <option value="Unidad de loteo y subasta">Unidad de loteo y subasta</option>
+                          {% endif %}
+                          {% if solicitud.departamento == "Departamento de fiscalización"  %}
+                              <option selected>Elegir una unidad</option>
+                              <option value="Jefe de departamento">Jefe de departamento</option>
+                              <option value="Gestión operativa">Gestión operativa</option>
+                              <option value="Adiestramiento canino">Adiestramiento canino</option>
+                              <option value="Aforo">Aforo</option>
+                              <option value="Análisis financiero">Análisis financiero</option>
+                              <option value="Drogas">Drogas</option>
+                              <option value="Fiscalización Aposteriori">Fiscalización Aposteriori</option>
+                              <option value="UAR Arica">UAR Arica</option>
+                              <option value="UFDDC análisis">UFDDC análisis</option>
+                              <option value="UFDDC análisis">Unidad radiológica</option>           
+                          {% endif %}
+                          {% if solicitud.departamento == "Departamento jurídico"  %}
+                              <option selected>Elegir una unidad</option>
+                              <option value="Jefe de departamento">Jefe de departamento</option>
+                              <option value="Fernando Gatica">Fernando Gatica</option>
+                              <option value="Katherine Ampuero">Katherine Ampuero</option>
+                              <option value="Andrés Hidalgo">Andrés Hidalgo</option>         
+                          {% endif %}
+                          {% if solicitud.departamento == "Departamento de operaciones"  %}
+                              <option selected>Elegir una unidad</option>
+                              <option value="Jefe de departamento">Jefe de departamento</option>
+                              <option value="Gestión operativa">Gestión operativa</option> 
+                              <option value="Centro adiestramiento">Centro adiestramiento</option>
+                              <option value="DTI">DTI</option>
+                              <option value="Marítimo">Marítimo</option>
+                              <option value="Puerto Molo">Puerto Molo</option>
+                              <option value="Terrestres">Terrestres</option>
+                              <option value="TNI">TNI</option>
+                              <option value="Vehicular">Vehicular</option>
+                              <option value="Zona primaria">Zona primaria</option>          
+                          {% endif %}
+                          {% if solicitud.departamento == "Departamento técnico"  %}
+                              <option selected>Elegir una unidad</option>
+                              <option value="Jefe de departamento">Jefe de departamento</option>
+                              <option value="Gestión operativa">Gestión operativa</option>
+                              <option value="Artículo 35">Artículo 35</option>
+                              <option value="Audiencias">Audiencias</option>
+                              <option value="Control receptora">Control receptora</option>
+                              <option value="Control régimen suspensivos">Control régimen suspensivos</option>
+                              <option value="Franquicia">Franquicia</option>
+                              <option value="Giro y cargos">Giro y cargos</option>
+                              <option value="Pagos de derechos">Pagos de derechos</option>
+                              <option value="Pasavantes">Pasavantes</option>
+                              <option value="Sub. departamento de cargos y denuncias">Sub. departamento de cargos y denuncias</option>
+                              <option value="Sub. departamento de reposiciones adminstrativas">Sub. departamento de reposiciones adminstrativas</option>
+                              <option value="Sub. departamento técnico">Sub. departamento técnico</option>
+                              <option value="Zona franca">Zona franca</option>          
+                          {% endif %}
+                          {% if solicitud.departamento == "Dirección regional"  %}
+                              <option selected>Elegir una unidad</option>
+                              <option value="Unidad de coorinación">Unidad de coorinación</option>
+                              <option value="Director regional">Director regional</option>
+                          {% endif %}
+                          {% if solicitud.departamento == "OIRS"  %}
+                              <option selected>Elegir una unidad</option>
+                              <option value="Jefe de departamento">Jefe de departamento</option>
+                              <option value="Gestión operativa">Gestión operativa</option>
+                              <option value="Archivos">Archivos</option>
+                              <option value="Gestión y control">Gestión y control</option>            
+                          {% endif %}                            
+                      </select>
+                      <label for="unidad">Unidad</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input
+                      type="file"
+                      class="form-control" name="antecedentePDF" id="antecedentePDF" placeholder="">
+                    <label for="antecedentePDF">Archivo adjuntable:</label>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                  <button class="btn btn-primary mb-2" type="submit">Asignar unidad</button>
+        </form>                    
+      </div>
+    </div>        
+  </div>              
+</div>
+{% endblock %}

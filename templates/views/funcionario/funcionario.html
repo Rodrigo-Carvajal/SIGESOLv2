@@ -1,0 +1,12 @@
+{% extends "layouts/funcionarioLayout.html" %}
+{% block title %}Funcionario{% endblock %}
+{% block body %}
+<div class="row align-items-md-stretch">
+    <div class="col-md-12">
+        <div
+            class="h-100 p-5 text-white bg-dark ">
+            <h2>Bienvenido {{current_user.nombreUsuario}}</h2>
+            <p>Eres el usuario con el id número {{current_user.id}} y estas registrado como {{current_user.nombreCompleto}}</p>
+            <button class="btn btn-outline-primary" type="button">No hago nada</button>
+        </div>
+    </div>{% endblock %}

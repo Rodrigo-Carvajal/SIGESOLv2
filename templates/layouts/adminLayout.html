@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>-SIGESOL {% block title %}{% endblock %}-</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.css') }}"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body class="text-center">
+    <nav class="navbar fondonav navbar-expand-lg navbar-dark ">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('admin') }}"><img src="{{ url_for('static', filename='assets/logo.png') }}" alt="LogoAduana"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-item nav-link" href="{{ url_for('adminCrudUsuarios') }}" aria-current="page"><i class="fa-solid fa-table-list"></i> CRUD de Usuarios </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-item nav-link" href="{{ url_for('adminCrudSolicitudes') }}"><i class="fa-solid fa-table-list"></i> Crud de solicitudes</a>
+              </li>
+            </ul>
+            <div class="d-flex">
+                <a class="nav-link" href="{{ url_for('logout') }}"><button class="btn btn-danger ms-auto">Salir <i class="fa-solid fa-person-walking-dashed-line-arrow-right"></i></button></a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    {% block body %}
+
+    {% endblock %}
+  <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='fontawesome/js/all.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+{% extends "layouts/oirsLayout.html" %}
+
+{% block title %}OIRS{% endblock %}
+{% block body %}
+<form action="" method="POST">
+    <div class="row g-2 bg-light">
+        <div class="container text-center col-lg-12 p-5">
+            <div class="col-lg-6 form-floating m-2">
+                <div class="input-group-md form-floating mb-3">
+                    <input type="number" class="form-control" id="idSolicitud" name="idSolicitud" placeholder="Ingrese la id de la solicitud" value="{{ solicitud.idSolicitud }}" required disabled>
+                    <label for="idSolicitud">Id de la solicitud a modificar:</label>
+                </div>
+                <div class="input-group-md form-floating mb-3">
+                    <input type="text" class="form-control" id="numero" name="numero" placeholder="Número de solicitud" value="{{ solicitud.numero }}" required>
+                    <label for="numero">Número de la solicitud:</label>
+                </div>
+                <div class="input-group-md form-floating mb-3">
+                    <input type="date" class="form-control" id="fechaDeIngreso" name="fechaDeIngreso" placeholder="Fecha de ingreso" value="{{ solicitud.fechaDeIngreso }}" required>
+                    <label  for="fechaDeIngreso" >Fecha de ingreso de la solicitud:</label>
+                </div>
+                <div class="input-group-md form-floating mb-3">
+                    <input type="date" class="form-control" id="fechaDeVencimiento" name="fechaDeVencimiento" placeholder="Fecha de vencimiento" value="{{ solicitud.fechaDeVencimiento}}" required>
+                    <label  for="fechaDeIngreso">Fecha de vencimiento de la solicitud(Máx. 5 días hábiles):</label>
+                </div>
+                <div class="input-group-md form-floating mb-3">
+                    <input type="text" hidden class="form-control" value="{{ current_user.nombreUsuario}}" id="funcionario" name="funcionario" placeholder="Funcionario" value="{{ solicitud.funcionario }}" focus required>
+                </div>
+            </div>
+            <div class="col-lg-6 form-floating m-2">
+                <div class="form-floating mb-3">
+                    <div class="input-group-md form-floating mb-3">
+                        <input type="text" class="form-control" id="nombreSolicitante" name="nombreSolicitante" placeholder="Nombre de quien realiza la solicitud:" value="{{ solicitud.nombreSolicitante }}" required>
+                        <label for="nombreSolicitante">Nombre de quien realiza la solicitud:</label>
+                    </div>
+                    <div class="input-group-md form-floating mb-3">
+                        <input type="text" class="form-control" id="materia" name="materia" placeholder="Materia" value="{{ solicitud.materia}}" required>
+                        <label for="materia">Materia referente a la solicitud:</label>
+                    </div>
+                    <div class="input-group form-floating mb-3">
+                        <select class="form-select" id="tipo" name="tipo" required>
+                          <option selected>{{ solicitud.tipo }}</option>
+                          <option value="Carta">Carta</option>
+                          <option value="Circular">Circular</option>
+                          <option value="Citacion">Citación</option>
+                          <option value="crm">crm</option>
+                          <option value="Doc digital">Doc digital</option>
+                          <option value="Encomienda">Encomienda</option>
+                          <option value="Fax">Fax</option>
+                          <option value="Invitacion">Invitación</option>
+                          <option value="Oficio">Oficio</option>
+                          <option value="Presentación">Presentación</option>
+                          <option value="Remisor">Remisor</option>
+                          <option value="Resolucion">Resolución</option>
+                          <option value="Sobre">Sobre</option>
+                          <option value="Solicitud">Solicitud</option>
+                          <option value="otra">Otro documento</option>
+                        </select>
+                        <label for="tipo">Tipo de solicitud:</label>
+                    </div>
+                </div>
+                <div class="form-floating mb-3">
+                    <div class="input-group form-floating mb-3">
+                        <select class="form-select" id="departamento" name="departamento" required>
+                          <option selected>{{ solicitud.departamento }}</option>
+                          <option value="Departamento administrativo">Departamento administrativo</option>
+                          <option value="Departamento de fiscalización">Departamento de fiscalización</option>            
+                          <option value="Departamento jurídico">Departamento jurídico</option>
+                          <option value="Departamento de operaciones">Departamento de operaciones</option>
+                          <option value="Departamento técnico">Departamento técnico</option>
+                          <option value="Dirección regional">Dirección regional</option>
+                          <option value="OIRS">OIRS</option>
+                        </select>
+                        <label for="departamento">Departamento:</label>
+                    </div>
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center align-items-center">
+            <div class="col-3 form-floating mb-2 ">
+                <input type="text" name="nombreUsuario" id="nombreUsuario" value="{{current_user.nombreUsuario}}" class="form-control" disabled>
+            <label for="nombreUsuario">Nombre del usuario que realizó la modificación</label>
+            </div>            
+            
+        </div>
+        <div class="row-md mb-2 ">            
+            <button type="submit" class="btn btn-primary">Modificar solicitud</button>        
+        </div>
+    </div>        
+</form>
+
+{% endblock %}

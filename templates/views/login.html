@@ -1,0 +1,40 @@
+{% extends "layouts/loginLayout.html"%}
+
+    {% block title %}Iniciar sesión{% endblock %}
+{% block body %} 
+  <div class="container login mt-5 column d-flex border border-dark sm-12 md-12 lg-12 xl-12">
+    <div class="form-floating row g-1 sm-12 md-12 lg-6 xl-6">
+      <img src="{{ url_for('static', filename='assets/logo_Login.png') }}" alt="Logo Aduana" class="logoLogin sm-12 md-12 lg-6 xl-6">
+        
+    </div>
+    <form class="needs-validation sm-12 md-12 lg-6 xl-6" action="/login" method="POST">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <div class="form-floating sm-12 md-12 lg-6 xl-6 m-5 d-flex">
+          <input type="text" class="form-control" name="nombreUsuario" id="nombreUsuario" required>
+          <label for="nombreUsuario" class="form-label"><i class="fa-solid fa-user"></i> Usuario</label>
+        </div>
+        <div class="form-floating sm-12 md-12 lg-6 xl-6 m-5 d-flex">
+          <input type="password" class="form-control" name="contrasena" id="contrasena" required>
+          <label for="contrasena" class="form-label"><i class="fa-solid fa-key"></i> Constraseña</label>
+        </div>
+        <button class="btn btn-primary" type="submit"><i class="fa-solid fa-right-to-bracket"></i> Iniciar sesión</button>
+    </form>
+    <div class="" fade> 
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="d-flex align-items-center justify-content-center">
+                {% for category,message in messages %}
+                    <div class="alert col-lg-12  alert-{{category}} alert-dismissible show fade" role="alert">
+                        <strong>{{message}}</strong> 
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>                        
+                    </div>    
+                {% endfor %}
+            </div>
+        {% endif %}
+      {% endwith %}
+    </div>
+  </div>
+  
+    
+    
+{% endblock %}

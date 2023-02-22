@@ -1,0 +1,90 @@
+{% extends "layouts/adminLayout.html" %}
+
+    {% block title %}Administrador{% endblock %}
+{% block body %}
+    
+    <div class="row align-items-md-stretch">
+        <div class="col-md-12">
+            <div
+                class="h-100 p-3 text-white bg-dark ">
+                <h2>Bienvenido {{current_user.nombreUsuario}}</h2>
+                <p>Eres el usuario con el id número {{current_user.id}} y estas registrado como {{current_user.nombreCompleto}}</p>
+                <button class="btn btn-outline-primary" type="button">No hago</button>
+                <hr>
+                <div class="container-fluid mt-2">
+                    <div class="table-responsive">
+                        <table class="table table-secondary">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Id:</th>
+                                    <th scope="col">Nombre de usuario:</th>
+                                    <th scope="col">Rol:</th>
+                                    <th scope="col">Nombre completo:</th>
+                                    <th scope="col">Departamento:</th>
+                                    <th scope="col">Unidad:</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for usuario in usuarios %}
+                                    <tr class="scope">
+                                        <td>{{ usuario.id }}</td>
+                                        <td>{{ usuario.nombreUsuario }}</td>
+                                        <td>{{ usuario.rol }}</td>
+                                        <td>{{ usuario.nombreCompleto }}</td>
+                                        <td>{{ usuario.departamento }}</td>
+                                        <td>{{ usuario.unidad }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                <hr>
+                    <div class="container-fluid mt-2">
+                        <div class="table-responsive">
+                            <table class="table table-secondary">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Id:</th>
+                                        <th scope="col">Número de solicitud:</th>
+                                        <th scope="col">Fecha de ingreso:</th>
+                                        <th scope="col">Fecha de vencimiento:</th>
+                                        <th scope="col">Nombre del solicitante:</th>
+                                        <th scope="col">Materia:</th>
+                                        <th scope="col">Tipo:</th>
+                                        <th scope="col">Departamento:</th>
+                                        <th scope="col">Unidad</th>
+                                        <th scope="col">Funcionario:</th>
+                                        <th scope="col">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for solicitud in solicitudes %}
+                                        <tr class="scope">
+                                            <td>{{ solicitud.idSolicitud }}</td>
+                                            <td>{{ solicitud.numero }}</td>
+                                            <td>{{ solicitud.fechaDeIngreso }}</td>
+                                            <td>{{ solicitud.fechaDeVencimiento }}</td>
+                                            <td>{{ solicitud.nombreSolicitante }}</td>
+                                            <td>{{ solicitud.materia }}</td>
+                                            <td>{{ solicitud.tipo }}</td>
+                                            <td>{{ solicitud.departamento }}</td>
+                                            <td>{{ solicitud.unidad }}</td>
+                                            <td>{{ solicitud.usuarioID }}</td>
+                                            <td>
+                                                <a name="editSolicitud" id="editSolicitud" class="btn btn-info" href="/aedits/{{solicitud.idSolicitud}}" role="button"><i class="fa-solid fa-pen-nib"></i>  Editar</a>
+                                                <a name="deleteSolicitud" id="deleteSolicitud" class="btn btn-danger" href="/adeletes/{{solicitud.idSolicitud}}" role="button"><i class="fa-solid fa-x"></i> Eliminar</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            
+                        </div>                
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}
